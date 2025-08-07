@@ -1,0 +1,8 @@
+      index="main" sourcetype="linux_secure" 
+      | rex field=_raw "port\s(?<port_number>\d+)" 
+      | search port_number=22
+      | rex field=_raw "user\s(?<username>\w*)" 
+      | rex field=_raw "(?<clientip>\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})"
+      | stats count as ssh_con_number by clientip
+      | sort -ssh_con_number
+      | head 5
