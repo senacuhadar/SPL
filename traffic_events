@@ -1,0 +1,5 @@
+      index=main sourcetype=access_combined_wcookie 
+      | head 10 
+      | eventstats sum(bytes) as TotalBytes by clientip 
+      | table _time,bytes,TotalBytes,clientip 
+      | sort clientip
