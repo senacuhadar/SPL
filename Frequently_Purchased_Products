@@ -1,0 +1,9 @@
+index=main sourcetype=access_combined_wcookie action=purchase status=200  
+file=success.do
+[search index=main sourcetype=access_combined_wcookie action=purchase status=200  
+file=success.do
+| top clientip limit=1
+| table clientip]
+| stats count as "Toplam Satın Alınan", dc(productId) as "Kaç farklı  
+Urun",values(productId) as Urunler by clientip
+| rename clientip as "Top 1 Musteri"
